@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World By Ranjan</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+  </head>
+  <body>
+    <header>
+      <p>Where in the World?</p>
+      <div class="dark-theme-container">
+        <!-- <i class='material-symbols-outlined'>dark_mode</i> -->
+      </div>
+    </header>
+    <div class="input-segment">
+      <div class="search-container">
+        <i class="material-symbols-outlined">search</i>
+        <input id="search" type="text" placeholder="Search for a country" />
+      </div>
+      <div class="filter-container">
+        <div class="dropdown">
+          <div class="select-text">
+            <span id="selectText">Filter By region </span
+            ><i class="material-symbols-outlined">arrow_drop_down</i>
+          </div>
+          <div class="select-box">
+            <li>Africa</li>
+            <li>Americas</li>
+            <li>Asia</li>
+            <li>Europe</li>
+            <li>Oceania</li>
+            <li class="removeFilter">Remove filter</li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="country-container">
+      <div class="country-box">
+        <div class="flag-img">
+          <img src="https://flagcdn.com/in.svg" alt="" />
+        </div>
+        <div class="more-details">
+          <h1>India</h1>
+          <p>Population: <span>12121</span></p>
+          <p>Region <span>Asia</span></p>
+          <p>capital <span>Delhi</span></p>
+        </div>
+      </div>
+      <div class="country-box">
+        <div class="flag-img">
+          <img src="https://flagcdn.com/in.svg" alt="" />
+        </div>
+        <div class="more-details">
+          <h1>India</h1>
+          <p>Population: <span>12121</span></p>
+          <p>Region <span>Asia</span></p>
+          <p>capital <span>Delhi</span></p>
+        </div>
+      </div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>

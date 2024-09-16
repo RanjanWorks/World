@@ -1,0 +1,130 @@
+<!-- details.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Country Details</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+  </head>
+  <body>
+    <header>
+      <p>Where in the World?</p>
+      <div class="dark-theme-container">
+        <!-- <i class="material-symbols-outlined">dark_mode</i> -->
+      </div>
+    </header>
+    <div class="backdiv">
+      <div onclick="window.history.back()" class="backdiv-wrapper">
+        <i class="material-symbols-outlined">arrow_back</i>
+        <p>Back</p>
+      </div>
+    </div>
+
+    <!-- <div id="country-details"></div> -->
+    <section class="details-container"></section>
+    <script>
+      fetchCountries(
+        "https://restcountries.com/v3.1/name/india?fullText=true"
+      ).then((data) => {
+        console.log(data);
+      });
+      async function fetchCountries(url) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          return await response.json();
+        } catch (error) {
+          console.error("Error fetching the URL:", error);
+        }
+      }
+    </script>
+
+    <script>
+      // Get the country name from the URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const countryName = urlParams.get("country");
+
+      if (countryName) {
+        // Fetch country details using the REST API
+        fetch(
+          `https://restcountries.com/v3.1/name/${encodeURIComponent(
+            countryName
+          )}?fullText=true`
+        )
+          .then((response) => response.json())
+          .then((data) => displayCountryDetails(data[0])) // Assuming the first result is the correct one
+          .catch((error) =>
+            console.error("Error fetching country details:", error)
+          );
+      } else {
+        document.getElementById("country-details").innerHTML =
+          "Country not found!";
+      }
+
+      function displayCountryDetails(country) {
+  console.log(country);
+  const countryDetails = `
+    <div class="big-img">
+      <img src="${country.flags?.svg || ''}" alt="${country.name?.common || 'Flag'}">
+    </div>
+    <div class="details-page">
+      <h1>${country.name?.common || 'N/A'}</h1>
+      <div class="details-wrapper">
+        <p>Native name: <span>${
+          country.name?.nativeName
+            ? Object.values(country.name.nativeName).map(native => native.official).join(", ")
+            : "N/A"
+        }</span></p>
+
+        <p>Population: <span>${country.population?.toLocaleString() || 'N/A'}</span></p>
+        <p>Region: <span>${country.region || 'N/A'}</span></p>
+        <p>Status: <span>${country.status || 'N/A'}</span></p>
+        <p>Capital: <span>${country.capital?.[0] || 'N/A'}</span></p>
+        <p>Currencies: <span>${
+          country.currencies 
+            ? Object.values(country.currencies).map(c => c.name).join(", ")
+            : 'N/A'
+        }</span></p>
+        <p>Start of week: <span>${country.startOfWeek || 'N/A'}</span></p>
+        <p>Time zone: <span>${country.timezones?.join(", ") || 'N/A'}</span></p>
+        <p>Independent: <span>${country.independent ? 'Yes' : 'No'}</span></p>
+        <p>Languages: <span>${
+          country.languages 
+            ? Object.values(country.languages).join(", ")
+            : 'N/A'
+        }</span></p>
+      </div>
+      <div class="borders">
+        <h2>Borders</h2>
+        <div class="border-wrapper">
+          ${
+            country.borders && country.borders.length > 0
+              ? country.borders.map(border => `<span>${border}</span>`).join(" ")
+              : "N/A"
+          }
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.querySelector(".details-container").innerHTML = countryDetails;
+}
+
+    </script>
+  </body>
+</html>
+
+<!-- <h1>${country.name.common}</h1>
+<img src="${country.flags.svg}" alt="Flag of ${country.name.common}">
+<p>Population: ${country.population.toLocaleString()}</p>
+<p>Region: ${country.region}</p>
+<p>Subregion: ${country.subregion}</p>
+<p>Capital: ${country.capital?.[0] || 'N/A'}</p>
+<p>Languages: ${Object.values(country.languages).join(", ")}</p>
+<p>Currencies: ${Object.values(country.currencies).map(c => c.name).join(", ")}</p> -->
