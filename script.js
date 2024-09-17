@@ -101,26 +101,3 @@ function displayCountry(country) {
 function removePreviousCountry() {
   CountryContainer.innerHTML = "";
 }
-
-switcher.addEventListener("click", () => {
-  document.body.classList.toggle("active");
-  if (document.body.classList.contains("active")) {
-    switcher.textContent = "light_mode";
-    localStorage.setItem("dark", "true");
-  } else {
-    switcher.textContent = "dark_mode";
-    localStorage.setItem("dark", "false");
-  }
-});
-
-function checkForDarkMode() {
-  console.log(isDarkmode)
-  if (isDarkmode == "true") {
-    document.body.classList.add("active");
-    switcher.textContent = "light_mode";
-    
-  } else {
-    document.body.classList.remove("active");
-    switcher.textContent = "light_mode";
-  }
-}

@@ -20,13 +20,14 @@ body {
   --lightText: gray;
 }
 
-
-.active{
-    --White: #2b3743;
-    --bg: #202d36;
+@media(prefers-color-scheme:dark){
+  :root {
+    --bg: #1A120B;
+    --paddingBlock: 50px;
+    --lightHover: #e3e3e3;
+    --White: #3C2A21; 
     --black: white;
-    --lightHover: #4a3549;
-    --lightText: #e8cae7;
+    --lightText: #D5CEA3;
   }
 }
 
@@ -170,7 +171,7 @@ header {
     .more-details {
       padding: 20px;
       h1 {
-        font-size: clamp(1rem, 2.5vw, 1.4rem);
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
         margin: 15px 0;
       }
       p {
@@ -258,13 +259,7 @@ header {
   }
 }
 
-footer{
-  position: sticky;
-  top: 100%;
-  text-align: center;
-  padding: 40px 0;
-  background-color: var(--White);
-}
+
 
 @media (width <=700px) {
   .input-segment {
