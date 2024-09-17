@@ -5,7 +5,6 @@ let CountryContainer = document.querySelector(".country-container");
 const searchInput = document.getElementById("search");
 const switcher = document.getElementById("toggle");
 let CountryArray = [];
-checkForDarkMode();
 let countryBoxes;
 const spinner =
   '<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><use href="#icon.spinner"></use></svg>';
