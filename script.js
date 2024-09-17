@@ -6,6 +6,7 @@ const searchInput = document.getElementById("search");
 const switcher = document.getElementById("toggle");
 let CountryArray = [];
 let countryBoxes;
+checkForDarkMode()
 const spinner =
   '<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><use href="#icon.spinner"></use></svg>';
 
@@ -105,7 +106,7 @@ function displayCountry(country) {
 function removePreviousCountry() {
   CountryContainer.innerHTML = "";
 }
-/*
+
 switcher.addEventListener("click", () => {
   document.body.classList.toggle("active");
   if (document.body.classList.contains("active")) {
@@ -128,4 +129,4 @@ function checkForDarkMode() {
     switcher.textContent = "light_mode";
   }
 }
-*/
+
