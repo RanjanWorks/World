@@ -20,14 +20,14 @@ body {
   --lightText: gray;
 }
 
-@media(prefers-color-scheme:dark){
+@media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1A120B;
+    --bg: #1a120b;
     --paddingBlock: 50px;
     --lightHover: #e3e3e3;
-    --White: #3C2A21; 
+    --White: #3c2a21;
     --black: white;
-    --lightText: #D5CEA3;
+    --lightText: #d5cea3;
   }
 }
 
@@ -92,6 +92,9 @@ header {
   }
 }
 
+input::placeholder {
+  color: var(--lightText);
+}
 .dropdown {
   position: relative;
   .select-text {
@@ -259,8 +262,6 @@ header {
   }
 }
 
-
-
 @media (width <=700px) {
   .input-segment {
     flex-direction: column;
@@ -293,7 +294,7 @@ header {
   .country-container {
     .country-box {
       img {
-        height: 200px;
+        height: 250px;
       }
     }
   }
