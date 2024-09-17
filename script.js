@@ -106,7 +106,7 @@ function displayCountry(country) {
 function removePreviousCountry() {
   CountryContainer.innerHTML = "";
 }
-
+/*
 switcher.addEventListener("click", () => {
   document.body.classList.toggle("active");
   if (document.body.classList.contains("active")) {
@@ -129,3 +129,4 @@ function checkForDarkMode() {
     switcher.textContent = "light_mode";
   }
 }
+*/
