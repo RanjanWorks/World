@@ -24,11 +24,13 @@ body {
 
 }
 @media(prefers-color-scheme:dark){
+  :root{
   --White: #2b3743;
     --bg: #202d36;
     --black: white;
     --lightHover: #30404f;
     --lightText:#dfefff;
+}
 }
 
 .active1{
