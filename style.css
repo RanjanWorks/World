@@ -5,15 +5,12 @@
   box-sizing: border-box;
   font-family: "Poppins", system-ui;
   font-size: inherit;
-  /* outline: 1px solid red; */
-  /* transition: .1s ease-in-out; */
 }
 body {
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--black);
 }
-
 :root {
   --bg: #f1f3f4;
   --paddingBlock: 50px;
@@ -21,31 +18,44 @@ body {
   --White: #fff;
   --black: black;
   --lightText: gray;
-
 }
 
-
-.active{
-    --White: #2b3743;
-    --bg: #202d36;
+@media (prefers-color-scheme) {
+  :root {
+    --White: #3f2e3e;
+    --bg: #331d2c;
     --black: white;
-    --lightHover: #30404f;
-    --lightText:#dfefff;
-  
+    --lightHover: #4a3549;
+    --lightText: #e8cae7;
+  }
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--White);
+  outline: 1px solid var(--black);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg);
+}
+
 header {
   display: flex;
   align-items: center;
   background: var(--White);
   justify-content: space-between;
-  padding: 15px var(--paddingBlock);
+  padding: 10px var(--paddingBlock);
   box-shadow: 0 0 5px 0 #0000001a;
   p {
     font-size: clamp(1rem, 2.5vw, 1.4rem);
     font-weight: 500;
   }
-  #toggle{
-   cursor: pointer;
+  img {
+    width: 40px;
   }
 }
 
@@ -91,6 +101,7 @@ header {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    color: var(--lightText);
     border-radius: 5px;
     user-select: none;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.151);
@@ -141,6 +152,7 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 50px;
+  margin-bottom: 30px;
   .country-box {
     display: flex;
     flex-direction: column;
@@ -211,6 +223,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--White);
+    gap: 20px;
     border-radius: 5px;
     padding: 20px;
     .details-wrapper {
@@ -230,16 +243,27 @@ header {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    gap: 5px;
     .border-wrapper {
       display: flex;
+      gap: 5px;
       span {
         padding: 5px 10px;
         border: 1px solid var(--lightHover);
         color: var(--lightText);
         font-size: 16px;
+        border-radius: 25px;
       }
     }
   }
+}
+
+footer{
+  position: sticky;
+  top: 100%;
+  text-align: center;
+  padding: 40px 0;
+  background-color: var(--White);
 }
 
 @media (width <=700px) {
@@ -268,6 +292,13 @@ header {
       }
       .details-wrapper {
         grid-template-columns: auto;
+      }
+    }
+  }
+  .country-container {
+    .country-box {
+      img {
+        height: 200px;
       }
     }
   }

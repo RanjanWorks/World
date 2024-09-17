@@ -1,14 +1,9 @@
-let isDarkmode = localStorage.getItem("dark") || false
 let selectText = document.getElementById("selectText");
 let dropDown = document.querySelector(".dropdown");
 let CountryContainer = document.querySelector(".country-container");
 const searchInput = document.getElementById("search");
-const switcher = document.getElementById("toggle");
 let CountryArray = [];
-checkForDarkMode();
 let countryBoxes;
-const spinner =
-  '<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><use href="#icon.spinner"></use></svg>';
 
 document.querySelectorAll(".select-box li").forEach((li) => {
   li.addEventListener("click", (e) => {
@@ -107,25 +102,3 @@ function removePreviousCountry() {
   CountryContainer.innerHTML = "";
 }
 
-switcher.addEventListener("click", () => {
-  document.body.classList.toggle("active");
-  if (document.body.classList.contains("active")) {
-    switcher.textContent = "light_mode";
-    localStorage.setItem("dark", "true");
-  } else {
-    switcher.textContent = "dark_mode";
-    localStorage.setItem("dark", "false");
-  }
-});
-
-function checkForDarkMode() {
-  console.log(isDarkmode)
-  if (isDarkmode == "true") {
-    document.body.classList.add("active");
-    switcher.textContent = "light_mode";
-    
-  } else {
-    document.body.classList.remove("active");
-    switcher.textContent = "light_mode";
-  }
-}
