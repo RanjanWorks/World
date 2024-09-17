@@ -6,14 +6,12 @@
   font-family: "Poppins", system-ui;
   font-size: inherit;
   /* outline: 1px solid red; */
+  /* transition: .1s ease-in-out; */
 }
 body {
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--black);
-}
-@view-transition {
-  navigation: auto;
 }
 
 :root {
@@ -22,16 +20,18 @@ body {
   --lightHover: #e3e3e3;
   --White: #fff;
   --black: black;
+  --lightText: gray;
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+
+.active{
     --White: #2b3743;
     --bg: #202d36;
     --black: white;
-  --lightHover: #30404f;;
-
-  }
+    --lightHover: #30404f;
+    --lightText:#dfefff;
+  
 }
 header {
   display: flex;
@@ -43,6 +43,9 @@ header {
   p {
     font-size: clamp(1rem, 2.5vw, 1.4rem);
     font-weight: 500;
+  }
+  #toggle{
+   cursor: pointer;
   }
 }
 
@@ -161,21 +164,11 @@ header {
       p {
         font-size: 13px;
         span {
-          color: gray;
+          color: var(--lightText);
         }
       }
     }
   }
-}
-.country-box {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.5s ease;
-}
-
-.country-box.show {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* details page  */
@@ -228,7 +221,7 @@ header {
         font-size: 16px;
       }
       span {
-        color: gray;
+        color: var(--lightText);
       }
     }
   }
@@ -236,38 +229,46 @@ header {
   .borders {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     .border-wrapper {
       display: flex;
       span {
         padding: 5px 10px;
         border: 1px solid var(--lightHover);
-        color: gray;
+        color: var(--lightText);
         font-size: 16px;
       }
     }
   }
 }
 
-
 @media (width <=700px) {
-  .input-segment{
+  .input-segment {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-  .search-container{
-    input{
-      width: 100%;
+    .search-container {
+      input {
+        width: 100%;
+      }
+    }
+    .filter-container {
+      width: 200px;
     }
   }
-  .filter-container{
-    width: 200px;
+  :root {
+    --paddingBlock: 20px;
   }
-  }
-  :root{
-  --paddingBlock: 20px;
-
-  }
-  .details-container{
+  .details-container {
     grid-template-columns: auto;
+    .details-page {
+      h1 {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        margin: 10px 0;
+      }
+      .details-wrapper {
+        grid-template-columns: auto;
+      }
+    }
   }
 }

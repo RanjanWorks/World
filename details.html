@@ -10,8 +10,56 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
+    <style>
+      .details-container.loading{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
+    <svg style="display: none">
+      <symbol id="icon.spinner">
+        <g>
+          <circle
+            cx="12"
+            cy="12"
+            r="9.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          >
+            <animate
+              attributeName="stroke-dasharray"
+              dur="1.5s"
+              calcMode="spline"
+              values="0 150;42 150;42 150;42 150"
+              keyTimes="0;0.475;0.95;1"
+              keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="stroke-dashoffset"
+              dur="1.5s"
+              calcMode="spline"
+              values="0;-16;-59;-59"
+              keyTimes="0;0.475;0.95;1"
+              keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            dur="2s"
+            values="0 12 12;360 12 12"
+            repeatCount="indefinite"
+          />
+        </g>
+      </symbol>
+    </svg>
     <header>
       <p>Where in the World?</p>
       <div class="dark-theme-container">
@@ -25,33 +73,20 @@
       </div>
     </div>
 
-    <!-- <div id="country-details"></div> -->
-    <section class="details-container"></section>
-    <script>
-      fetchCountries(
-        "https://restcountries.com/v3.1/name/india?fullText=true"
-      ).then((data) => {
-        console.log(data);
-      });
-      async function fetchCountries(url) {
-        try {
-          const response = await fetch(url);
-          if (!response.ok)
-            throw new Error(`HTTP error! status: ${response.status}`);
-          return await response.json();
-        } catch (error) {
-          console.error("Error fetching the URL:", error);
-        }
-      }
-    </script>
+
+    <section class="details-container loading"></section>
 
     <script>
+      let container = document.querySelector(".details-container");
+      const spinner =
+        '<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><use href="#icon.spinner"></use></svg>';
+
       // Get the country name from the URL parameter
       const urlParams = new URLSearchParams(window.location.search);
       const countryName = urlParams.get("country");
 
       if (countryName) {
-        // Fetch country details using the REST API
+        container.innerHTML = spinner
         fetch(
           `https://restcountries.com/v3.1/name/${encodeURIComponent(
             countryName
@@ -63,41 +98,49 @@
             console.error("Error fetching country details:", error)
           );
       } else {
-        document.getElementById("country-details").innerHTML =
-          "Country not found!";
+        container.innerHTML = "Data not found ):";
       }
 
       function displayCountryDetails(country) {
-  console.log(country);
-  const countryDetails = `
+        // console.log(country);
+        container.classList.remove('loading')
+        const countryDetails = `
     <div class="big-img">
-      <img src="${country.flags?.svg || ''}" alt="${country.name?.common || 'Flag'}">
+      <img src="${country.flags?.svg || ""}" alt="${
+          country.name?.common || "Flag"
+        }">
     </div>
     <div class="details-page">
-      <h1>${country.name?.common || 'N/A'}</h1>
+      <h1>${country.name?.common || "N/A"}</h1>
       <div class="details-wrapper">
         <p>Native name: <span>${
           country.name?.nativeName
-            ? Object.values(country.name.nativeName).map(native => native.official).join(", ")
+            ? Object.values(country.name.nativeName)
+                .map((native) => native.official)
+                .join(", ")
             : "N/A"
         }</span></p>
 
-        <p>Population: <span>${country.population?.toLocaleString() || 'N/A'}</span></p>
-        <p>Region: <span>${country.region || 'N/A'}</span></p>
-        <p>Status: <span>${country.status || 'N/A'}</span></p>
-        <p>Capital: <span>${country.capital?.[0] || 'N/A'}</span></p>
-        <p>Currencies: <span>${
-          country.currencies 
-            ? Object.values(country.currencies).map(c => c.name).join(", ")
-            : 'N/A'
+        <p>Population: <span>${
+          country.population?.toLocaleString() || "N/A"
         }</span></p>
-        <p>Start of week: <span>${country.startOfWeek || 'N/A'}</span></p>
-        <p>Time zone: <span>${country.timezones?.join(", ") || 'N/A'}</span></p>
-        <p>Independent: <span>${country.independent ? 'Yes' : 'No'}</span></p>
+        <p>Region: <span>${country.region || "N/A"}</span></p>
+        <p>Status: <span>${country.status || "N/A"}</span></p>
+        <p>Capital: <span>${country.capital?.[0] || "N/A"}</span></p>
+        <p>Currencies: <span>${
+          country.currencies
+            ? Object.values(country.currencies)
+                .map((c) => c.name)
+                .join(", ")
+            : "N/A"
+        }</span></p>
+        <p>Start of week: <span>${country.startOfWeek || "N/A"}</span></p>
+        <p>Time zone: <span>${country.timezones?.join(", ") || "N/A"}</span></p>
+        <p>Independent: <span>${country.independent ? "Yes" : "No"}</span></p>
         <p>Languages: <span>${
-          country.languages 
+          country.languages
             ? Object.values(country.languages).join(", ")
-            : 'N/A'
+            : "N/A"
         }</span></p>
       </div>
       <div class="borders">
@@ -105,26 +148,20 @@
         <div class="border-wrapper">
           ${
             country.borders && country.borders.length > 0
-              ? country.borders.map(border => `<span>${border}</span>`).join(" ")
+              ? country.borders
+                  .map((border) => `<span>${border}</span>`)
+                  .join(" ")
               : "N/A"
           }
         </div>
       </div>
     </div>
   `;
-  
-  document.querySelector(".details-container").innerHTML = countryDetails;
-}
 
+        container.innerHTML = countryDetails;
+      }
     </script>
   </body>
 </html>
 
-<!-- <h1>${country.name.common}</h1>
-<img src="${country.flags.svg}" alt="Flag of ${country.name.common}">
-<p>Population: ${country.population.toLocaleString()}</p>
-<p>Region: ${country.region}</p>
-<p>Subregion: ${country.subregion}</p>
-<p>Capital: ${country.capital?.[0] || 'N/A'}</p>
-<p>Languages: ${Object.values(country.languages).join(", ")}</p>
-<p>Currencies: ${Object.values(country.currencies).map(c => c.name).join(", ")}</p> -->
+

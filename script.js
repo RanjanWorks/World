@@ -1,9 +1,14 @@
+let isDarkmode = localStorage.getItem("dark") || false
 let selectText = document.getElementById("selectText");
 let dropDown = document.querySelector(".dropdown");
 let CountryContainer = document.querySelector(".country-container");
 const searchInput = document.getElementById("search");
+const switcher = document.getElementById("toggle");
 let CountryArray = [];
+checkForDarkMode();
 let countryBoxes;
+const spinner =
+  '<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><use href="#icon.spinner"></use></svg>';
 
 document.querySelectorAll(".select-box li").forEach((li) => {
   li.addEventListener("click", (e) => {
@@ -15,8 +20,9 @@ document.querySelectorAll(".select-box li").forEach((li) => {
       filterByRegion(CountryArray, region).forEach(displayCountry);
     } else {
       CountryArray.forEach(displayCountry);
-      selectText.innerHTML = "Filter by region"
+      selectText.innerHTML = "Filter by region";
     }
+    countryBoxes = document.querySelectorAll(".country-box");
   });
 });
 
@@ -55,6 +61,7 @@ async function fetchCountries(url) {
     return await response.json();
   } catch (error) {
     console.error("Error fetching the URL:", error);
+    alert(error);
   }
 }
 
@@ -72,27 +79,53 @@ function displayCountry(country) {
   const box = `
     <div class="country-box show" data-country="${country.name.common}">
         <div class="flag-img">
-            <img src="${country.flags.svg}" alt="Flag of ${country.name.common}">
+            <img src="${country.flags.svg}" alt="Flag of ${
+    country.name.common
+  }">
         </div>
         <div class="more-details">
             <h1>${country.name.common}</h1>
             <p>Population: <span>${country.population.toLocaleString()}</span></p>
             <p>Region: <span>${country.region}</span></p>
-            <p>Capital: <span>${country.capital?.[0] || 'N/A'}</span></p>
+            <p>Capital: <span>${country.capital?.[0] || "N/A"}</span></p>
         </div>
     </div>`;
-    
+
   CountryContainer.insertAdjacentHTML("beforeend", box);
 
   // Add click event to redirect to details page
   const newBox = CountryContainer.querySelector(".country-box:last-child");
   newBox.addEventListener("click", () => {
     // Redirect to a details page with the country name as a URL parameter
-    window.location.href = `details.html?country=${encodeURIComponent(country.name.common)}`;
+    window.location.href = `details.html?country=${encodeURIComponent(
+      country.name.common
+    )}`;
   });
 }
 
-
 function removePreviousCountry() {
   CountryContainer.innerHTML = "";
+}
+
+switcher.addEventListener("click", () => {
+  document.body.classList.toggle("active");
+  if (document.body.classList.contains("active")) {
+    switcher.textContent = "light_mode";
+    localStorage.setItem("dark", "true");
+  } else {
+    switcher.textContent = "dark_mode";
+    localStorage.setItem("dark", "false");
+  }
+});
+
+function checkForDarkMode() {
+  console.log(isDarkmode)
+  if (isDarkmode == "true") {
+    document.body.classList.add("active");
+    switcher.textContent = "light_mode";
+    
+  } else {
+    document.body.classList.remove("active");
+    switcher.textContent = "light_mode";
+  }
 }
